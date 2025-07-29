@@ -13,14 +13,25 @@ return new class extends Migration
     {
         Schema::create('containers', function (Blueprint $table) {
             $table->id();
-            $table->string('container_code')->unique();
-            $table->string('container_type');
-            $table->string('container_size');
-            $table->string('container_status'); // e.g., available, in use,  maintenance
+            $table->string('customer')->nullable(); //
+            $table->enum('type_survey', ['In-serv','ONH','OFH','Sale']);
+            $table->enum('status',['Mty','Full']);
+            $table->enum('condition',['DMG','AVL','AR']);
+            $table->enum('cleanliness',['dty','ctm']);
             $table->string('location'); // e.g., depot, customer site
-            $table->string('color');
-            $table->dateTime('last_inspection_date')->nullable();
-
+            $table->text('survey_location');
+            $table->dateTime('date_survey');
+            $table->string('container_number')->unique();
+            $table->integer('size');
+            $table->string('type')->unique();
+            $table->string('mgm');
+            $table->integer('payload');
+            $table->integer('tare');
+            $table->integer('cu_cap');
+            $table->dateTime('date_manufactured');
+            $table->string('csc');
+            $table->string('acep');
+            $table->string('tct');
             $table->softDeletes(); // for soft deletion
             $table->timestamps();
         });

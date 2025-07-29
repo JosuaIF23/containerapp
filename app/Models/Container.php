@@ -15,13 +15,25 @@ class Container extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'container_code',
-        'container_type',
-        'container_size',
-        'container_status',
+        'customer',
+        'type_survey',
+        'status',
+        'condition',
+        'cleanliness',
         'location',
-        'color',
-        'last_inspection_date',
+        'survey_location',
+        'date_survey',
+        'container_number',
+        'size',
+        'type',
+        'mgm',
+        'payload',
+        'tare',
+        'cu_cap',
+        'date_manufactured',
+        'csc',
+        'acep',
+        'tct'
     ];
 
     /**
