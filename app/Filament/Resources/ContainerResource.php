@@ -17,6 +17,9 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use App\Enums\ReportStatus;
 
 class ContainerResource extends Resource
 {
@@ -109,14 +112,27 @@ class ContainerResource extends Resource
     {
         return $table
             ->columns([
-    
-            TextColumn::make('company_name')->limit(10)->tooltip(fn($state) => $state)->searchable()->sortable(),
+            TextColumn::make('customer')->limit(10)->tooltip(fn($state) => $state)->searchable()->sortable(),
             TextColumn::make('location')->limit(10)->tooltip(fn($state) => $state)->searchable()->sortable(),
-            TextColumn::make('laboratorium')->limit(10)->tooltip(fn($state) => $state)->searchable()->sortable(),
             
+            Tables\Columns\BadgeColumn::make('status')
+                ->formatStateUsing(fn($state) => ReportStatus::tryFrom($state)?->getLabel() ?? 'Unknown')
+                ->color(fn($state) => ReportStatus::tryFrom($state)?->getColor() ?? 'gray')
+                ->icon(fn($state) => ReportStatus::tryFrom($state)?->getIcon() ?? 'heroicon-m-question-mark-circle')
+                ->sortable(),
+
+            TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
+            TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                 SelectFilter::make('progress')
+                    ->options([
+                        ReportStatus::New->value => 'New',
+                        ReportStatus::Processing->value => 'Processing',
+                        ReportStatus::Approved->value => 'Approved',
+                        ReportStatus::Rejected->value => 'Rejected',
+                        ReportStatus::Updated->value => 'Updated',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
