@@ -21,4 +21,9 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    protected $policies = [
+    \App\Models\Container::class => \App\Policies\ContainerPolicy::class,
+    // policy lainnya jika ada
+];
+
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Container extends Model
@@ -33,8 +34,22 @@ class Container extends Model
         'date_manufactured',
         'csc',
         'acep',
-        'tct'
+        'tct',
+        'surveyor',
+        'note',
+        'schedule_id',
     ];
+
+    public function schedule(): HasOne
+    {
+        return $this->hasOne(Schedule::class);
+    }
+
+    public function documentContainers()
+    {
+    return $this->hasMany(DocumentContainer::class);
+    }
+
 
     /**
      * The attributes that should be cast.
