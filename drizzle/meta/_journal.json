@@ -8,6 +8,13 @@
       "when": 1781772565372,
       "tag": "0000_right_blink",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1781850827836,
+      "tag": "0001_left_lockjaw",
+      "breakpoints": true
     }
   ]
 }

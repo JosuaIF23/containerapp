@@ -1,4 +1,4 @@
-# Rencana Stack — Dashboard PT Global Inspeksi Sertifikasi
+# Rencana Stack — Dashboard PT. Global Inspeksi Forensik Teknik
 
 > Dokumen ini adalah blueprint/instruksi untuk membuat proyek **baru dan terpisah**
 > (folder belum dibuat). Pindahkan file ini ke root folder proyek baru saat folder
@@ -6,7 +6,7 @@
 
 ## 1. Ringkasan Proyek
 
-- **Nama:** Dashboard internal PT Global Inspeksi Sertifikasi
+- **Nama:** Dashboard internal PT. Global Inspeksi Forensik Teknik
 - **Domain bisnis:** Jasa inspeksi & sertifikasi kontainer
 - **Tujuan:** Sistem login + dashboard internal yang aman, dengan UI modern
   (frosted glass / glassmorphism), dan manajemen akses berbasis role yang
@@ -164,7 +164,7 @@ persis**, supaya tim tidak perlu belajar cara baru.
    DATABASE_URL=mysql://DB_USER:DB_PASSWORD@localhost:3306/DB_NAME
    AUTH_SECRET=ganti_dengan_random_string_panjang
    APP_URL=https://domain-anda.com
-   COMPANY_NAME=PT. Global Inspeksi Sertifikasi
+   COMPANY_NAME=PT. Global Inspeksi Forensik Teknik
    NODE_ENV=production
    ```
 6. **Import struktur tabel via phpMyAdmin** — urutkan sesuai nomor file migrasi

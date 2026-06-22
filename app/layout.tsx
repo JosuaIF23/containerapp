@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard PT Global Inspeksi Sertifikasi",
+  title: "Dashboard PT. Global Inspeksi Forensik Teknik",
   description: "Sistem login dan dashboard internal inspeksi & sertifikasi kontainer",
 };
 

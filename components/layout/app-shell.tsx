@@ -6,7 +6,7 @@ export async function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <AppShellClient
-      appName="PT Global Inspeksi Sertifikasi"
+      appName="PT. Global Inspeksi Forensik Teknik"
       user={{
         fullName: session.fullName,
         email: session.email,

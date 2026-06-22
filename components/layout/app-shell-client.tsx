@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight, ShieldCheck, LogOut } from "lucide-react";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -8,6 +9,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { logoutAction } from "@/app/actions/auth";
+import { ROLE_LABELS } from "@/lib/auth/authz";
 
 type AppShellClientProps = {
   appName: string;
@@ -19,15 +21,9 @@ type AppShellClientProps = {
   children: React.ReactNode;
 };
 
-const ROLE_LABELS: Record<string, string> = {
-  super_admin: "Super Admin",
-  admin: "Admin",
-  surveyor: "Surveyor",
-  finance: "Finance",
-};
-
 export function AppShellClient({ appName, user, children }: AppShellClientProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const [, startLogoutTransition] = useTransition();
   const initials = user.fullName
     .split(" ")
     .map((part) => part[0])
@@ -54,7 +50,7 @@ export function AppShellClient({ appName, user, children }: AppShellClientProps)
           )}
         </div>
 
-        <SidebarNav collapsed={collapsed} />
+        <SidebarNav collapsed={collapsed} role={user.role} />
 
         <button
           type="button"
@@ -69,12 +65,15 @@ export function AppShellClient({ appName, user, children }: AppShellClientProps)
           <div className="flex items-center justify-center">
             <ThemeToggle />
           </div>
-          <form action={logoutAction}>
-            <Button type="submit" variant="ghost" className="w-full justify-start gap-3 px-3">
-              <LogOut className="h-4 w-4" />
-              {!collapsed && "Keluar"}
-            </Button>
-          </form>
+          <Button
+            type="button"
+            variant="ghost"
+            className="w-full justify-start gap-3 px-3"
+            onClick={() => startLogoutTransition(() => logoutAction())}
+          >
+            <LogOut className="h-4 w-4" />
+            {!collapsed && "Keluar"}
+          </Button>
         </div>
       </aside>
 
@@ -85,7 +84,10 @@ export function AppShellClient({ appName, user, children }: AppShellClientProps)
           </p>
           <div className="flex items-center gap-3">
             <Badge>{ROLE_LABELS[user.role] ?? user.role}</Badge>
-            <div className="flex items-center gap-2">
+            <Link
+              href="/account"
+              className="flex items-center gap-2 rounded-2xl px-2 py-1 transition-colors hover:bg-white/10"
+            >
               <Avatar>
                 <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
@@ -93,7 +95,7 @@ export function AppShellClient({ appName, user, children }: AppShellClientProps)
                 <p className="text-sm font-medium text-foreground">{user.fullName}</p>
                 <p className="text-xs text-foreground/50">{user.email}</p>
               </div>
-            </div>
+            </Link>
           </div>
         </header>
 
